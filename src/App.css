@@ -8,6 +8,19 @@
     grid-gap: 10px;
 }
 
+.app-wrapper-content {
+.content {
+    grid-area: c;
+    background-color: yellow;
+
+}
+
+.content img {
+    width: 1200px
+}
+
+
+}
 
 
 
