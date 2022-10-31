@@ -6,8 +6,12 @@ type MessagePropsType = {
 }
 
 export const Message: React.FC<MessagePropsType> = (props) => {
+
     return (
-        <div className={s.dialog}>{props.message}</div>
+        <div>
+            <div className={s.dialog}>{props.message}</div>
+
+        </div>
     )
 
 }
