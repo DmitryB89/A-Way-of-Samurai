@@ -1,11 +1,12 @@
-import React from "react";
-import {renderTree} from "../render";
-
+let onChange = (state: RootStateType) => {
+    console.log('state is rendered')
+}
 
 export type RootStateType = {
     dialogPage: DialogPageType
     profilePage: ProfilePageType
     sidebar: SidebarType
+
 }
 
 type SidebarType = {}
@@ -60,24 +61,31 @@ export const state: RootStateType = {
             {id: 1, message: 'How are you?', likesCount: 12},
             {id: 2, message: 'It is my first post', likesCount: 10},
         ],
-        newPostText:''
+        newPostText: ''
 
     },
     sidebar: {}
 }
 
-export const addPost = () =>  {
-    const newPost:PostType = {
-        id:new Date().getTime(),
-        message:state.profilePage.newPostText,
-        likesCount:0
+export const addPost = () => {
+    const newPost: PostType = {
+        id: new Date().getTime(),
+        message: state.profilePage.newPostText,
+        likesCount: 0
     }
     state.profilePage.posts.push(newPost)
-    renderTree(state)
+    state.profilePage.newPostText = ''
+    onChange(state)
 }
 
-export const updateNewPostText = (newText:string) => {
+export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
-    renderTree(state)
+    onChange(state)
+
+}
+
+
+export const subscribe = (callback: (state:RootStateType) => void) => {
+    onChange = callback
 
 }

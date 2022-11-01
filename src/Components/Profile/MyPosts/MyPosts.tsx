@@ -28,7 +28,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         // }
         // const text = newPostElement.current?.value
         props.addPostCallback(props.message)
-        props.changeNewTextCallback('')
+        // props.changeNewTextCallback('')
         // newPostElement.current.value = ''
     }
 
