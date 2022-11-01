@@ -11,8 +11,8 @@ type DialogsPageDataType = {
 export const Dialogs:React.FC<DialogsPageDataType> = (props) => {
 
 
-    const dialogsElements = props.dialogsPageData.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>)
-    const messageElements = props.dialogsPageData.messages.map(message => <Message message={message.message}/>)
+    const dialogsElements = props.dialogsPageData.dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>)
+    const messageElements = props.dialogsPageData.messages.map(message => <Message key={message.id} message={message.message}/>)
 
     const newMessage=React.createRef<HTMLTextAreaElement>()
 

@@ -1,4 +1,5 @@
 import React from "react";
+import {renderTree} from "../render";
 
 
 export type RootStateType = {
@@ -71,4 +72,5 @@ export const addPost = (postMessage:string) =>  {
         likesCount:0
     }
     state.profilePage.posts.push(newPost)
+    renderTree(state)
 }
