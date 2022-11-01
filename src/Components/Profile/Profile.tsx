@@ -7,6 +7,10 @@ import {ProfilePageType} from "../../redux/state";
 type ProfilePageDataType = {
     profilePageData:ProfilePageType
     addPostCallback:(m:string)=>void
+    message:string
+    changeNewTextCallback: (newText:string) => void
+
+
 }
 
 
@@ -14,7 +18,7 @@ export const Profile:React.FC<ProfilePageDataType> = (props) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.profilePageData.posts} addPostCallback={props.addPostCallback}/>
+            <MyPosts posts={props.profilePageData.posts} addPostCallback={props.addPostCallback} message={props.message} changeNewTextCallback={props.changeNewTextCallback}/>
         </div>
     )
 

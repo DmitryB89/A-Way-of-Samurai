@@ -10,6 +10,7 @@ import {RootStateType} from "./redux/state";
 type AppStateType ={
     appState: RootStateType
     addPostCallback:(m:string) => void
+    changeNewTextCallback: (newText:string) => void
 
 }
 
@@ -21,7 +22,7 @@ const App:React.FC<AppStateType> = (props) => {
             {/*<Profile/>*/}
             <div className={'app-wrapper-content'}>
                 <Routes>
-                    <Route path="/profile" element={<Profile profilePageData={props.appState.profilePage} addPostCallback={props.addPostCallback}/>}/>
+                    <Route path="/profile" element={<Profile profilePageData={props.appState.profilePage} addPostCallback={props.addPostCallback} message={props.appState.profilePage.newPostText} changeNewTextCallback={props.changeNewTextCallback}/>}/>
                     <Route path="/dialogs/*" element={<Dialogs dialogsPageData={props.appState.dialogPage}/>}/>
                     {/*<Route path="/news" element={<News/>}/>*/}
                     {/*<Route path="/music" element={<Music/>}/>*/}
