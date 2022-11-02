@@ -3,22 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import {addPost, updateNewPostText, state, subscribe, RootStateType} from "./redux/state";
+import {RootStateType, store} from "./redux/state";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-const renderTree = (state:RootStateType) => {
+const renderTree = (state: RootStateType) => {
 
     root.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App appState={state} addPostCallback={addPost} changeNewTextCallback={updateNewPostText} />
+                <App appState={state} addPostCallback={store.addPost.bind(store)} changeNewTextCallback={store.updateNewPostText.bind(store)} />
             </BrowserRouter>
 
         </React.StrictMode>
     );
 }
-renderTree(state)
-subscribe(renderTree)
+renderTree(store.getState())
+store._subscribe(renderTree)
