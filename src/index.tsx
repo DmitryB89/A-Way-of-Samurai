@@ -14,11 +14,11 @@ const renderTree = (state: RootStateType) => {
     root.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App appState={state} addPostCallback={store.addPost.bind(store)} changeNewTextCallback={store.updateNewPostText.bind(store)} />
+                <App appState={state} dispatch={store.dispatch.bind(store)}/>
             </BrowserRouter>
 
         </React.StrictMode>
     );
 }
 renderTree(store.getState())
-store._subscribe(renderTree)
+store.subscribe(renderTree)
