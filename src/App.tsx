@@ -23,7 +23,7 @@ const App: React.FC<AppStateType> = (props) => {
                 <Routes>
                     <Route path="/profile"
                            element={<Profile profilePageData={props.appState.profilePage} dispatch={props.dispatch}/>}/>
-                    <Route path="/dialogs/*" element={<Dialogs dialogsPageData={props.appState.dialogPage}/>}/>
+                    <Route path="/dialogs/*" element={<Dialogs dialogsPageData={props.appState.dialogPage} dispatch={props.dispatch}/>}/>
                     {/*<Route path="/news" element={<News/>}/>*/}
                     {/*<Route path="/music" element={<Music/>}/>*/}
                     {/*<Route path="/settings" element={<Settings/>}/>*/}
