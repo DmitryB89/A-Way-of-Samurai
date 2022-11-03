@@ -1,3 +1,5 @@
+import {ChangeEvent} from "react";
+
 export type RootStateType = {
     dialogPage: DialogPageType
     profilePage: ProfilePageType
@@ -43,16 +45,34 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
+
+// type AddPostActionType = {
+//     type: 'ADD-POST'
+//     newPostText: string
+// }
+type AddPostActionType = ReturnType<typeof addPostAC>
+type UpdateNewPostTextType = ReturnType<typeof newTextChangeHandlerAC>
+
+// type UpdateNewPostTextType = {
+//     type: 'UPDATE-NEW-POST-TEXT'
+//     newText: string
+// }
 export type ActionTypes = AddPostActionType | UpdateNewPostTextType
 
-type AddPostActionType = {
-    type: 'ADD-POST'
-    newPostText: string
+export const addPostAC = (newPostText:string) => {
+    return {
+        type:"ADD-POST",
+        newPostText:newPostText
+    } as const
 }
 
-type UpdateNewPostTextType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
+
+
+export const newTextChangeHandlerAC = (newText:string) => {
+    return {
+        type:"UPDATE-NEW-POST-TEXT",
+        newText:newText
+    } as const
 }
 
 export const store: StoreType = {
