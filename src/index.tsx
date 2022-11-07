@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import {RootStateType, store} from "./redux/state";
+import {store} from "./redux/redux-store";
+import {RootStateType} from "./redux/types";
+
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-const renderTree = (state: RootStateType) => {
+const renderTree = (state: any) => {
 
     root.render(
         <React.StrictMode>
@@ -21,4 +23,7 @@ const renderTree = (state: RootStateType) => {
     );
 }
 renderTree(store.getState())
-store.subscribe(renderTree)
+store.subscribe(()=> {
+    let state = store.getState()
+    renderTree(state)
+})
