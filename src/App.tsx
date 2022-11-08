@@ -6,11 +6,12 @@ import {Profile} from "./Components/Profile/Profile";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {Route, Routes} from "react-router-dom";
 import {ActionTypes, RootStateType, StoreType} from "./redux/types";
+import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 
 type AppStateType = {
     appState: RootStateType
     dispatch: (action: ActionTypes) => void
-
+    store:StoreType
 }
 
 const App: React.FC<AppStateType> = (props) => {
@@ -22,8 +23,8 @@ const App: React.FC<AppStateType> = (props) => {
             <div className={'app-wrapper-content'}>
                 <Routes>
                     <Route path="/profile"
-                           element={<Profile profilePageData={props.appState.profilePage} dispatch={props.dispatch}/>}/>
-                    <Route path="/dialogs/*" element={<Dialogs dialogsPageData={props.appState.dialogPage} dispatch={props.dispatch}/>}/>
+                           element={<Profile store={props.store} />}/>
+                    <Route path="/dialogs/*" element={<DialogsContainer store={props.store}/>}/>
                     {/*<Route path="/news" element={<News/>}/>*/}
                     {/*<Route path="/music" element={<Music/>}/>*/}
                     {/*<Route path="/settings" element={<Settings/>}/>*/}

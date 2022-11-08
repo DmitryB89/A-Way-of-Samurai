@@ -1,14 +1,14 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {addPostAC, newTextChangeHandlerAC}from "../../../redux/profile-reducer"
-import {ActionTypes, PostType} from "../../../redux/types";
+import {PostType} from "../../../redux/types";
 
 
 type MyPostsPropsType = {
     posts: PostType[]
     message: string
-    dispatch: (action: ActionTypes) => void
+    onAddPost: () => void
+    newTextChangeHandler: (text: string) => void
 }
 
 
@@ -19,22 +19,13 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     // const newPostElement = React.createRef<HTMLTextAreaElement>()
 
-    const addPost = () => {
-        // const text = newPostElement.current?.value
-        // props.addPostCallback(newPostElement.current ? newPostElement.current.value : '')
-        // if (newPostElement.current) {
-        //     props.addPostCallback(newPostElement.current.value)
-        //     newPostElement.current.value = ''
-        // }
-        // const text = newPostElement.current?.value
-        props.dispatch(addPostAC(props.message))
-        // props.changeNewTextCallback('')
-        // newPostElement.current.value = ''
+    const onAddPost = () => {
+        props.onAddPost()
     }
 
     const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // props.updateNewPostText(e.currentTarget.value)
-        props.dispatch(newTextChangeHandlerAC(e.currentTarget.value))
+        const text = e.currentTarget.value
+        props.newTextChangeHandler(text)
 
 
     }
@@ -47,7 +38,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
                     <textarea value={props.message} onChange={newTextChangeHandler}></textarea>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>

@@ -5,7 +5,7 @@ import {RootStateType, StoreType} from "./types";
 
 export const store: StoreType = {
     _state: {
-        dialogPage: {
+        dialogsPage: {
             dialogs: [
                 {id: 1, name: 'Dimych'},
                 {id: 2, name: 'Alena'},
@@ -33,9 +33,9 @@ export const store: StoreType = {
             newPostText: ''
 
         },
-        sidebar: {}
+        // sidebar: {}
     },
-    _onChange(state: RootStateType) {
+    _callSubscriber(state: RootStateType) {
         console.log('state is rendered')
     },
 
@@ -43,7 +43,7 @@ export const store: StoreType = {
         return this._state
     },
     subscribe(callback) {
-        this._onChange = callback
+        this._callSubscriber = callback
 
     },
 
@@ -51,9 +51,9 @@ export const store: StoreType = {
     dispatch(action) {
 
         this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogPage = dialogsReducer(this._state.dialogPage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         // this._state.sidebar = sidebarReducer(this._state.sidebar,action)
-        this._onChange(this._state)
+        this._callSubscriber(this._state)
 
 
     }

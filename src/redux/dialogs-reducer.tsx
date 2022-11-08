@@ -24,14 +24,17 @@ const initialState = {
 }
 
 
-export const dialogsReducer = (state: DialogPageType = initialState, action: ActionTypes) => {
+export const dialogsReducer = (state= initialState, action: ActionTypes) => {
 
-    if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
-        state.newMessageBody = action.body;
-    } else if (action.type === 'SEND-MESSAGE') {
-        let body = state.newMessageBody;
-        state.newMessageBody = '';
-        state.messages.push({id: 6, message: body});
+    switch (action.type) {
+        case 'UPDATE-NEW-MESSAGE-BODY':
+            state.newMessageBody = action.body;
+            break;
+        case 'SEND-MESSAGE':
+            let body = state.newMessageBody;
+            state.newMessageBody = '';
+            state.messages.push({id: 6, message: body});
+            break;
     }
 
     return state

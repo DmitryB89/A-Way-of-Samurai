@@ -1,13 +1,15 @@
 import {addPostAC, newTextChangeHandlerAC} from "./profile-reducer";
 import {sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 
 export type RootStateType = {
-    dialogPage: DialogPageType
+    dialogsPage: DialogPageType
     profilePage: ProfilePageType
-    sidebar: SidebarType
+    // sidebar: SidebarType
 
 }
-export type SidebarType = {}
+// export type SidebarType = {}
 export type DialogPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
@@ -33,17 +35,19 @@ export type PostType = {
 }
 export type StoreType = {
     _state: RootStateType
-    // updateNewPostText: (newText: string) => void
-    // addPost: (newPostText: string) => void
-    _onChange: (state: RootStateType) => void
+    _callSubscriber: (state: RootStateType) => void
     subscribe: (callback: (state: RootStateType) => void) => void
     getState: () => RootStateType
     dispatch: (action: ActionTypes) => void
+    // dialogsPage: DialogPageType
+    // profilePage: ProfilePageType
 }
+
 // type AddPostActionType = {
 //     type: 'ADD-POST'
 //     newPostText: string
 // }
+
 type AddPostActionType = ReturnType<typeof addPostAC>
 type UpdateNewPostTextType = ReturnType<typeof newTextChangeHandlerAC>
 type SendMessageType = ReturnType<typeof sendMessageAC>
