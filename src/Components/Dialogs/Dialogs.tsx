@@ -5,26 +5,27 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {ActionTypes, DialogPageType, StoreType} from "../../redux/types";
 
 type DialogsPageDataType = {
-    dialogsPageData: DialogPageType
-    sendMessageAC: () => void
-    onNewMessageChange:(body:string)=> void
+    dialogsPage: DialogPageType
+    onSendMessageClick: () => void
+    onNewMessageChange: (body: string) => void
+
 
 }
 
 export const Dialogs: React.FC<DialogsPageDataType> = (props) => {
-    const state = props.dialogsPageData
+    const state = props.dialogsPage
 
 
-    const dialogsElements = state.dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name}
-                                                                                    id={dialog.id}/>)
-    const messageElements = state.messages.map(message => <Message key={message.id}
-                                                                                   message={message.message}/>)
-    const newMessageBody = state.newMessageBody
+    const dialogsElements = props.dialogsPage.dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name}
+                                                                    id={dialog.id}/>)
+    const messageElements = props.dialogsPage.messages.map(message => <Message key={message.id}
+                                                                   message={message.message}/>)
+    const newMessageBody = props.dialogsPage.newMessageBody
 
     const newMessage = React.createRef<HTMLTextAreaElement>()
 
     const onSendMessageClick = () => {
-        props.sendMessageAC()
+        props.onSendMessageClick()
     }
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.target.value

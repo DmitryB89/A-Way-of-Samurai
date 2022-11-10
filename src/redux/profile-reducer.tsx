@@ -1,7 +1,13 @@
 import React from "react";
 import {ActionTypes, PostType} from "./types";
 
-const initialState = {
+
+export type InitialStateType = {
+    posts: Array<PostType>
+    newPostText: string
+}
+
+const initialState: InitialStateType = {
 
     posts: [
         {id: 1, message: 'How are you?', likesCount: 12},
@@ -11,7 +17,7 @@ const initialState = {
 
 }
 
-export const profileReducer = (state = initialState, action: ActionTypes) => {
+export const profileReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case 'ADD-POST':
             const newPost: PostType = {

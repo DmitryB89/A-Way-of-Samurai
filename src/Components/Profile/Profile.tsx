@@ -4,17 +4,16 @@ import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ActionTypes, ProfilePageType, StoreType} from "../../redux/types";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-
-type ProfilePageDataType = {
-    store:StoreType
-}
+import {AppStateType} from "../../redux/redux-store";
 
 
-export const Profile: React.FC<ProfilePageDataType> = (props) => {
+
+
+export const Profile: React.FC = (props) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer store={props.store} />
+            <MyPostsContainer/>
         </div>
     )
 

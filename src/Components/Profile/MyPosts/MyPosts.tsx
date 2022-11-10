@@ -7,7 +7,7 @@ import {PostType} from "../../../redux/types";
 type MyPostsPropsType = {
     posts: PostType[]
     message: string
-    onAddPost: () => void
+    onAddPost: any
     newTextChangeHandler: (text: string) => void
 }
 

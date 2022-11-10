@@ -1,6 +1,21 @@
 import React from "react";
-import {ActionTypes, DialogPageType, PostType, RootStateType} from "./types";
+import {ActionTypes} from "./types";
 
+export type DialogType = {
+    id: number
+    name: string
+}
+export type MessageType = {
+    id: number
+    message: string
+}
+
+
+export type dialogsInitialStateType = {
+    dialogs: DialogType[]
+    messages: MessageType[]
+    newMessageBody: string
+}
 
 const initialState = {
 
@@ -24,7 +39,7 @@ const initialState = {
 }
 
 
-export const dialogsReducer = (state= initialState, action: ActionTypes) => {
+export const dialogsReducer = (state= initialState, action: ActionTypes):dialogsInitialStateType => {
 
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-BODY':
@@ -33,7 +48,7 @@ export const dialogsReducer = (state= initialState, action: ActionTypes) => {
         case 'SEND-MESSAGE':
             let body = state.newMessageBody;
             state.newMessageBody = '';
-            state.messages.push({id: 6, message: body});
+            state.messages.push({id: new Date().getTime(), message: body});
             break;
     }
 
