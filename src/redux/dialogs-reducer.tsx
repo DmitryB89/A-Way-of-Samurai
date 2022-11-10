@@ -39,22 +39,30 @@ const initialState = {
 }
 
 
-export const dialogsReducer = (state= initialState, action: ActionTypes):dialogsInitialStateType => {
+export const dialogsReducer = (state = initialState, action: ActionTypes): dialogsInitialStateType => {
 
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-BODY':
-            state.newMessageBody = action.body;
-            break;
+            return {
+                ...state,
+                newMessageBody: action.body
+            }
+
         case 'SEND-MESSAGE':
             let body = state.newMessageBody;
-            state.newMessageBody = '';
-            state.messages.push({id: new Date().getTime(), message: body});
-            break;
-    }
+            return {
+                ...state,
+                newMessageBody: '',
+                messages: [...state.messages, {id: new Date().getTime(), message: body}]
+            }
+        default:
+            return state
 
-    return state
+
+
+    }
 }
 
-export const sendMessageAC = () => ({type: 'SEND-MESSAGE'} as const)
+    export const sendMessageAC = () => ({type: 'SEND-MESSAGE'} as const)
 
-export const updateNewMessageBodyAC = (body: string) => ({type: 'UPDATE-NEW-MESSAGE-BODY', body: body} as const)
+    export const updateNewMessageBodyAC = (body: string) => ({type: 'UPDATE-NEW-MESSAGE-BODY', body: body} as const)

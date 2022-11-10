@@ -12,21 +12,11 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-const renderTree = (state:RootStateType) => {
 
     root.render(
-        <React.StrictMode>
             <BrowserRouter>
                 <Provider store={store}>
-                <App />
+                    <App/>
                 </Provider>
             </BrowserRouter>
-
-        </React.StrictMode>
-    );
-}
-renderTree(store.getState())
-store.subscribe(()=> {
-    let state = store.getState()
-    renderTree(state)
-})
+    )
