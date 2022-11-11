@@ -5,6 +5,7 @@ import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
 import {Route, Routes} from "react-router-dom";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
+import {Users} from "./Components/Users/Users";
 
 const App: React.FC = () => {
     return (
@@ -16,7 +17,10 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/profile"
                            element={<Profile/>}/>
-                    <Route path="/dialogs/*" element={<DialogsContainer/>}/>
+                    <Route path="/dialogs/*"
+                           element={<DialogsContainer/>}/>
+                    <Route path="/users/*"
+                           element={<Users/>}/>
                     {/*<Route path="/news" element={<News/>}/>*/}
                     {/*<Route path="/music" element={<Music/>}/>*/}
                     {/*<Route path="/settings" element={<Settings/>}/>*/}

@@ -2,6 +2,7 @@ import {addPostAC, newTextChangeHandlerAC} from "./profile-reducer";
 import {sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
+import {followAC, setUsersAC, unfollowAC} from "./users-reducer";
 
 export type RootStateType = {
     dialogsPage: DialogPageType
@@ -52,8 +53,11 @@ type AddPostActionType = ReturnType<typeof addPostAC>
 type UpdateNewPostTextType = ReturnType<typeof newTextChangeHandlerAC>
 type SendMessageType = ReturnType<typeof sendMessageAC>
 type UpdateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyAC>
+type Follow = ReturnType<typeof followAC>
+type Unfollow = ReturnType<typeof unfollowAC>
+type SetUsers = ReturnType<typeof setUsersAC>
 // type UpdateNewPostTextType = {
 //     type: 'UPDATE-NEW-POST-TEXT'
 //     newText: string
 // }
-export type ActionTypes = AddPostActionType | UpdateNewPostTextType | SendMessageType | UpdateNewMessageBodyType
+export type ActionTypes = AddPostActionType | UpdateNewPostTextType | SendMessageType | UpdateNewMessageBodyType | Follow | Unfollow | SetUsers
