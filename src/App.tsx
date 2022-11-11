@@ -6,6 +6,7 @@ import {Profile} from "./Components/Profile/Profile";
 import {Route, Routes} from "react-router-dom";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import {Users} from "./Components/Users/Users";
+import {UsersContainer} from "./Components/Users/UsersContainer";
 
 const App: React.FC = () => {
     return (
@@ -20,7 +21,7 @@ const App: React.FC = () => {
                     <Route path="/dialogs/*"
                            element={<DialogsContainer/>}/>
                     <Route path="/users/*"
-                           element={<Users/>}/>
+                           element={<UsersContainer/>}/>
                     {/*<Route path="/news" element={<News/>}/>*/}
                     {/*<Route path="/music" element={<Music/>}/>*/}
                     {/*<Route path="/settings" element={<Settings/>}/>*/}
