@@ -5,7 +5,7 @@ import {followAC, InitialStateType, setUsersAC, unfollowAC, UserType} from "../.
 import {Dispatch} from "redux";
 
 
-type mapStatePropsType = {
+type MapStatePropsType = {
     usersPage: InitialStateType
 }
 
@@ -15,10 +15,10 @@ type MapDispatchToPropsType = {
     setUsers: (users: Array<UserType>) => void
 }
 
-export type UsersPropsType = mapStatePropsType & MapDispatchToPropsType
+export type UsersPropsType = MapStatePropsType & MapDispatchToPropsType
 
 
-const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         usersPage:state.users
     }

@@ -33,7 +33,6 @@ export const store: StoreType = {
             newPostText: ''
 
         },
-        // sidebar: {}
     },
     _callSubscriber(state: RootStateType) {
         console.log('state is rendered')
@@ -52,7 +51,6 @@ export const store: StoreType = {
 
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        // this._state.sidebar = sidebarReducer(this._state.sidebar,action)
         this._callSubscriber(this._state)
 
 
