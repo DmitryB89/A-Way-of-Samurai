@@ -4,6 +4,7 @@ import axios from "axios"
 import userPhoto from '../../assets/Images/user.png'
 
 export const Users = (props: UsersPropsType) => {
+    const getUsers = () => {
 
     if (props.usersPage.users.length === 0) {
 
@@ -12,9 +13,10 @@ export const Users = (props: UsersPropsType) => {
             }
         )
 
-
+    }}
         return (
             <div>
+                <button onClick={getUsers}>Get Users</button>
                 {
                     props.usersPage.users.map(u => <div key={u.id}>
                     <span>
@@ -45,5 +47,5 @@ export const Users = (props: UsersPropsType) => {
                 }
             </div>
         )
-    }
+
 }
