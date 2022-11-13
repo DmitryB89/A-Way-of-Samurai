@@ -3,11 +3,12 @@ import {ActionTypes, PostType} from "./types";
 
 export type UserType = {
     id: number
-    photoUrl: string
     followed: boolean
-    fullName: string
+    name: string
+    uniqueUrlName: string
     status: string
-    location: LocationType
+    location?: LocationType
+    photos:PhotosType
 }
 
 type LocationType = {
@@ -15,6 +16,10 @@ type LocationType = {
     country: string
 }
 
+type PhotosType = {
+    small: string
+    large:string
+}
 export type InitialStateType = {
     users: Array<UserType>
 }

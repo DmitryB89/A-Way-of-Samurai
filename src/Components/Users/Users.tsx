@@ -1,57 +1,26 @@
 import {UsersPropsType} from "./UsersContainer";
 import s from './users.module.css'
+import axios from "axios"
+import userPhoto from '../../assets/Images/user.png'
 
 export const Users = (props: UsersPropsType) => {
 
     if (props.usersPage.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                photoUrl: 'https://avatars.dzeninfra.ru/get-zen_doc/5231775/pub_62c955cc8298c16d4f273b70_62c955ec53e39724e0d82831/scale_1200',
-                followed: true,
-                fullName: 'Dmitry',
-                status: 'Boss',
-                location:
-                    {
-                        city: 'Rostov-on-Don',
-                        country: 'Russia'
-                    }
-            },
-            {
-                id: 2,
-                photoUrl: 'https://st03.kakprosto.ru/images/article/2018/11/17/338167_5bf0279d0eae05bf0279d0eb1a.jpeg',
-                followed: true,
-                fullName: 'Alena',
-                status: 'Housewife',
-                location:
-                    {
-                        city: 'Rostov-on-Don',
-                        country: 'Russia'
-                    }
-            },
-            {
-                id: 3,
-                photoUrl: 'https://www.nme.com/wp-content/uploads/2019/04/Jason-Statham.jpg',
-                followed: false,
-                fullName: 'Andrew',
-                status: 'Designer',
-                location:
-                    {
-                        city: 'Moscow',
-                        country: 'Russia'
-                    }
-            },
 
-        ])
-    }
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                props.setUsers(response.data.items)
+            }
+        )
 
-    return (
-        <div>
-            {
-                props.usersPage.users.map(u => <div key={u.id}>
+
+        return (
+            <div>
+                {
+                    props.usersPage.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photoUrl} alt="ava" className={s.userPhoto}/>
+                            <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="ava"
+                                 className={s.userPhoto}/>
                         </div>
                         <div>
                             {u.followed ? <button onClick={() => {
@@ -61,20 +30,20 @@ export const Users = (props: UsersPropsType) => {
                             }}>Follow</button>}
                         </div>
                     </span>
-                    <span>
+                        <span>
                         <span>
                             <div>
-                                {u.fullName}
+                                {u.name}
                             </div><div>{u.status}</div>
                         </span>
                         <span>
-                            <div>{u.location.country}</div>
-                            <div>{u.location.city}</div>
+                            <div>{'u.location.country'}</div>
+                            <div>{'u.location.city'}</div>
                         </span>
                     </span>
-                </div>)
-            }
-        </div>
-    )
+                    </div>)
+                }
+            </div>
+        )
+    }
 }
-
