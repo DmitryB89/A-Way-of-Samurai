@@ -2,23 +2,31 @@ import {UsersPropsType} from "./UsersContainer";
 import s from './users.module.css'
 import axios from "axios"
 import userPhoto from '../../assets/Images/user.png'
+import React from "react";
 
-export const Users = (props: UsersPropsType) => {
-    const getUsers = () => {
+export class Users extends React.Component<UsersPropsType> {
 
-    if (props.usersPage.users.length === 0) {
+    // constructor(props: UsersPropsType) {
+    //     super(props);
+    // if (this.props.usersPage.users.length === 0)
 
+    // }
+
+    componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                props.setUsers(response.data.items)
+                this.props.setUsers(response.data.items)
             }
         )
+    }
 
-    }}
+
+    render() {
+
         return (
             <div>
-                <button onClick={getUsers}>Get Users</button>
+                {/*<button onClick={this.getUsers}>Get Users</button>*/}
                 {
-                    props.usersPage.users.map(u => <div key={u.id}>
+                    this.props.usersPage.users.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="ava"
@@ -26,9 +34,9 @@ export const Users = (props: UsersPropsType) => {
                         </div>
                         <div>
                             {u.followed ? <button onClick={() => {
-                                props.unfollow(u.id)
+                                this.props.unfollow(u.id)
                             }}>Unfollow</button> : <button onClick={() => {
-                                props.follow(u.id)
+                                this.props.follow(u.id)
                             }}>Follow</button>}
                         </div>
                     </span>
@@ -47,5 +55,5 @@ export const Users = (props: UsersPropsType) => {
                 }
             </div>
         )
-
+    }
 }
