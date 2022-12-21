@@ -1,32 +1,42 @@
 import {connect} from "react-redux";
 import {Users} from "./Users";
 import {AppStateType} from "../../redux/redux-store";
-import {followAC, InitialStateType, setUsersAC, unfollowAC, UserType} from "../../redux/users-reducer";
+import {
+    followAC,
+    InitialStateType,
+    setCurrentPageAC, setTotalUsersCountAC,
+    setUsersAC,
+    unfollowAC,
+    UserType
+} from "../../redux/users-reducer";
 import {Dispatch} from "redux";
 
 
 type MapStatePropsType = {
-    usersPage: InitialStateType
-    pageSize:number
-    totalUsersCount:number
+    usersPage: UserType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 type MapDispatchToPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setUsers: (users: Array<UserType>) => void
+    setCurrentPage: (pageNumber: number) => void
+    setTotalUsersCount: (totalCount:number) => void
 }
-
 
 
 export type UsersPropsType = MapStatePropsType & MapDispatchToPropsType
 
 
-const mapStateToProps = (state: AppStateType):MapDispatchToPropsType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
-        usersPage:state.users.users,
-        pageSize:state.users.pageSize,
-        totalUsersCount:state.users.totalUsersCount
+        usersPage: state.users.users,
+        pageSize: state.users.pageSize,
+        totalUsersCount: state.users.totalUsersCount,
+        currentPage: state.users.currentPage
     }
 }
 
@@ -40,6 +50,12 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         },
         setUsers: (users: Array<UserType>) => {
             dispatch(setUsersAC(users))
+        },
+        setCurrentPage: (pageNumber) => {
+            dispatch(setCurrentPageAC(pageNumber))
+        },
+        setTotalUsersCount: (totalCount) => {
+            dispatch(setTotalUsersCountAC(totalCount))
         }
     }
 
@@ -47,4 +63,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 
 
 // <MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>
-export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)

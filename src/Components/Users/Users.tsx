@@ -15,27 +15,48 @@ export class Users extends React.Component<UsersPropsType> {
     // }
 
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                this.props.setUsers(response.data.items)
-            }
-        )
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}$count=${this.props.pageSize}`)
+            .then(response => {
+                    this.props.setUsers(response.data.items);
+                    this.props.setTotalUsersCount(response.data.totalCount)
+                }
+            )
     }
 
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}$count=${this.props.pageSize}`)
+            .then(response => {
+                    this.props.setUsers(response.data.items)
+                }
+            )
+    }
 
     render() {
+        const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+        // console.log(this.props.totalUsersCount,this.props.pageSize )
+        const pages: Array<number> = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
 
         return (
             <div>
                 <div>
-                    <span >1</span>
-                    <span className={s.selectedPage}>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
+                    {pages.map(p => {
+                        return <span key={new Date().getTime().toString()}
+                                     className={this.props.currentPage === p ? s.selectedPage : ''}
+                                     onClick={(e) => {
+                                         this.onPageChanged(p)
+                                     }}
+                        >{p}</span>
+                    })}
+
                 </div>
                 {/*<button onClick={this.getUsers}>Get Users</button>*/}
                 {
-                    this.props.usersPage.users.map(u => <div key={u.id}>
+                    this.props.usersPage.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="ava"
