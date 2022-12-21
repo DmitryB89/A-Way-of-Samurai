@@ -30,7 +30,7 @@ const initialState: InitialStateType = {
     users:[ ],
     pageSize: 5,
     totalUsersCount: 100,
-    currentPage: 3,
+    currentPage: 1,
 }
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {

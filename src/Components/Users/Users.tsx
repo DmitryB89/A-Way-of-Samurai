@@ -1,65 +1,52 @@
-import {UsersPropsType} from "./UsersContainer";
 import s from './users.module.css'
-import axios from "axios"
 import userPhoto from '../../assets/Images/user.png'
 import React from "react";
-import {inspect} from "util";
 import uuid from "react-uuid";
+import {UserType} from "../../redux/users-reducer";
 
-export class Users extends React.Component<UsersPropsType> {
+type UsersPropsTypeWithOnPageChange = {
+    usersPage: UserType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    setUsers: (users: Array<UserType>) => void
+    setCurrentPage: (pageNumber: number) => void
+    setTotalUsersCount: (totalCount: number) => void
+    onPageChanged: (pageNumber: number) => void
+}
 
-    // constructor(props: UsersPropsType) {
-    //     super(props);
-    // if (this.props.usersPage.users.length === 0)
 
-    // }
+export const Users: React.FC<UsersPropsTypeWithOnPageChange> = (props) => {
 
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}$count=${this.props.pageSize}`)
-            .then(response => {
-                    this.props.setUsers(response.data.items);
-                    this.props.setTotalUsersCount(response.data.totalCount)
-                }
-            )
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    // console.log(this.props.totalUsersCount,this.props.pageSize )
+    const pages: Array<number> = []
+    for (let i = 1; i <= pagesCount; i++) {
+        if (i <= 15) {
+            pages.push(i)
+        } else break
     }
 
-    onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}$count=${this.props.pageSize}`)
-            .then(response => {
-                    this.props.setUsers(response.data.items)
-                }
-            )
-    }
-
-    render() {
-        const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-        // console.log(this.props.totalUsersCount,this.props.pageSize )
-        const pages: Array<number> = []
-        for (let i = 1; i <= pagesCount; i++) {
-            if (i <= 15) {
-            pages.push(i) } else break
-        }
-
-
-        return (
+    return (
+        <div>
             <div>
-                <div>
 
-                    {pages.map(p => {
+                {pages.map(p => {
 
-                        return <span key={uuid()}
-                                     className={this.props.currentPage === p ? s.selectedPage : ''}
-                                     onClick={(e) => {
-                                         this.onPageChanged(p)
-                                     }}
-                        >{p}</span>
-                    })}
+                    return <span key={uuid()}
+                                 className={props.currentPage === p ? s.selectedPage : ''}
+                                 onClick={(e) => {
+                                     props.onPageChanged(p)
+                                 }}
+                    >{p}</span>
+                })}
 
-                </div>
-                {/*<button onClick={this.getUsers}>Get Users</button>*/}
-                {
-                    this.props.usersPage.map(u => <div key={uuid()}>
+            </div>
+            {/*<button onClick={this.getUsers}>Get Users</button>*/}
+            {
+                props.usersPage.map(u => <div key={uuid()}>
                     <span>
                         <div>
                             <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="ava"
@@ -67,13 +54,13 @@ export class Users extends React.Component<UsersPropsType> {
                         </div>
                         <div>
                             {u.followed ? <button onClick={() => {
-                                this.props.unfollow(u.id)
+                                props.unfollow(u.id)
                             }}>Unfollow</button> : <button onClick={() => {
-                                this.props.follow(u.id)
+                                props.follow(u.id)
                             }}>Follow</button>}
                         </div>
                     </span>
-                        <span>
+                    <span>
                         <span>
                             <div>
                                 {u.name}
@@ -84,9 +71,9 @@ export class Users extends React.Component<UsersPropsType> {
                             <div>{'u.location.city'}</div>
                         </span>
                     </span>
-                    </div>)
-                }
-            </div>
-        )
-    }
+                </div>)
+            }
+        </div>
+    )
 }
+
