@@ -4,7 +4,7 @@ import axios from "axios"
 import userPhoto from '../../assets/Images/user.png'
 import React from "react";
 import {inspect} from "util";
-
+import uuid from "react-uuid";
 
 export class Users extends React.Component<UsersPropsType> {
 
@@ -37,15 +37,18 @@ export class Users extends React.Component<UsersPropsType> {
         // console.log(this.props.totalUsersCount,this.props.pageSize )
         const pages: Array<number> = []
         for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i)
+            if (i <= 15) {
+            pages.push(i) } else break
         }
 
 
         return (
             <div>
                 <div>
+
                     {pages.map(p => {
-                        return <span key={new Date().getTime().toString()}
+
+                        return <span key={uuid()}
                                      className={this.props.currentPage === p ? s.selectedPage : ''}
                                      onClick={(e) => {
                                          this.onPageChanged(p)
@@ -56,7 +59,7 @@ export class Users extends React.Component<UsersPropsType> {
                 </div>
                 {/*<button onClick={this.getUsers}>Get Users</button>*/}
                 {
-                    this.props.usersPage.map(u => <div key={u.id}>
+                    this.props.usersPage.map(u => <div key={uuid()}>
                     <span>
                         <div>
                             <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="ava"
