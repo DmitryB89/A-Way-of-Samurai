@@ -8,7 +8,7 @@ export type UserType = {
     uniqueUrlName: string
     status: string
     location?: LocationType
-    photos:PhotosType
+    photos: PhotosType
 }
 
 type LocationType = {
@@ -18,15 +18,17 @@ type LocationType = {
 
 type PhotosType = {
     small: string
-    large:string
+    large: string
 }
 export type InitialStateType = {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
 }
-
 const initialState: InitialStateType = {
-
-    users: []
+    users:[],
+    pageSize: 5,
+    totalUsersCount: 0
 }
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {

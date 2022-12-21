@@ -7,6 +7,8 @@ import {Dispatch} from "redux";
 
 type MapStatePropsType = {
     usersPage: InitialStateType
+    pageSize:number
+    totalUsersCount:number
 }
 
 type MapDispatchToPropsType = {
@@ -15,12 +17,16 @@ type MapDispatchToPropsType = {
     setUsers: (users: Array<UserType>) => void
 }
 
+
+
 export type UsersPropsType = MapStatePropsType & MapDispatchToPropsType
 
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppStateType):MapDispatchToPropsType => {
     return {
-        usersPage:state.users
+        usersPage:state.users.users,
+        pageSize:state.users.pageSize,
+        totalUsersCount:state.users.totalUsersCount
     }
 }
 
@@ -38,5 +44,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 
 }
+
+
 // <MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>
 export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(Users)

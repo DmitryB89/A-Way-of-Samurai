@@ -3,6 +3,8 @@ import s from './users.module.css'
 import axios from "axios"
 import userPhoto from '../../assets/Images/user.png'
 import React from "react";
+import {inspect} from "util";
+
 
 export class Users extends React.Component<UsersPropsType> {
 
@@ -24,6 +26,13 @@ export class Users extends React.Component<UsersPropsType> {
 
         return (
             <div>
+                <div>
+                    <span >1</span>
+                    <span className={s.selectedPage}>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                </div>
                 {/*<button onClick={this.getUsers}>Get Users</button>*/}
                 {
                     this.props.usersPage.users.map(u => <div key={u.id}>
