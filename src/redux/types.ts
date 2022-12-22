@@ -1,7 +1,14 @@
 import {addPostAC, newTextChangeHandlerAC} from "./profile-reducer";
 import {DialogType, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unfollowAC} from "./users-reducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    toggleIsFetchingAC,
+    unfollowAC
+} from "./users-reducer";
 
 export type RootStateType = {
     dialogsPage: DialogPageType
@@ -54,6 +61,7 @@ type Unfollow = ReturnType<typeof unfollowAC>
 type SetUsers = ReturnType<typeof setUsersAC>
 type SetCurrentPage = ReturnType<typeof setCurrentPageAC>
 type setTotalUsersCount = ReturnType<typeof setTotalUsersCountAC>
+type toggleIsFetching = ReturnType<typeof toggleIsFetchingAC>
 
 // type UpdateNewPostTextType = {
 //     type: 'UPDATE-NEW-POST-TEXT'
@@ -69,3 +77,4 @@ export type ActionTypes =
     | SetUsers
     | SetCurrentPage
     | setTotalUsersCount
+    | toggleIsFetching
