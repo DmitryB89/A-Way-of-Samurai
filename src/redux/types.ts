@@ -1,13 +1,13 @@
-import {addPostAC, newTextChangeHandlerAC} from "./profile-reducer";
+import {addPostAC, newTextChangeHandlerAC, setUserProfile} from "./profile-reducer";
 import {DialogType, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unfollowAC
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unfollow
 } from "./users-reducer";
 
 export type RootStateType = {
@@ -31,6 +31,7 @@ export type MessageType = {
 export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
+    profile:any
 }
 export type PostType = {
     id: number
@@ -56,12 +57,13 @@ type AddPostActionType = ReturnType<typeof addPostAC>
 type UpdateNewPostTextType = ReturnType<typeof newTextChangeHandlerAC>
 type SendMessageType = ReturnType<typeof sendMessageAC>
 type UpdateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyAC>
-type Follow = ReturnType<typeof followAC>
-type Unfollow = ReturnType<typeof unfollowAC>
-type SetUsers = ReturnType<typeof setUsersAC>
-type SetCurrentPage = ReturnType<typeof setCurrentPageAC>
-type setTotalUsersCount = ReturnType<typeof setTotalUsersCountAC>
-type toggleIsFetching = ReturnType<typeof toggleIsFetchingAC>
+type Follow = ReturnType<typeof follow>
+type Unfollow = ReturnType<typeof unfollow>
+type SetUsers = ReturnType<typeof setUsers>
+type SetCurrentPage = ReturnType<typeof setCurrentPage>
+type setTotalUsersCount = ReturnType<typeof setTotalUsersCount>
+type toggleIsFetching = ReturnType<typeof toggleIsFetching>
+type setUserProfile = ReturnType<typeof setUserProfile>
 
 // type UpdateNewPostTextType = {
 //     type: 'UPDATE-NEW-POST-TEXT'
@@ -78,3 +80,4 @@ export type ActionTypes =
     | SetCurrentPage
     | setTotalUsersCount
     | toggleIsFetching
+    | setUserProfile

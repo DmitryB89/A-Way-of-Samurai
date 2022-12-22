@@ -3,6 +3,7 @@ import userPhoto from '../../assets/Images/user.png'
 import React from "react";
 import uuid from "react-uuid";
 import {UserType} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsTypeWithOnPageChange = {
     usersPage: UserType[]
@@ -49,8 +50,10 @@ export const Users: React.FC<UsersPropsTypeWithOnPageChange> = (props) => {
                 props.usersPage.map(u => <div key={uuid()}>
                     <span>
                         <div>
+                            <NavLink to={'/profile/' + u.id}>
                             <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="ava"
                                  className={s.userPhoto}/>
+                                </NavLink>
                         </div>
                         <div>
                             {u.followed ? <button onClick={() => {

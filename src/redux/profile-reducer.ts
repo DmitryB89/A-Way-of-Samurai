@@ -1,10 +1,14 @@
 import React from "react";
 import {ActionTypes, PostType} from "./types";
+import {UserType} from "./users-reducer";
+
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 
 export type InitialStateType = {
     posts: Array<PostType>
     newPostText: string
+    profile: any
 }
 
 const initialState: InitialStateType = {
@@ -13,7 +17,8 @@ const initialState: InitialStateType = {
         {id: 1, message: 'How are you?', likesCount: 12},
         {id: 2, message: 'It is my first post', likesCount: 10},
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 
 }
 
@@ -37,6 +42,11 @@ export const profileReducer = (state = initialState, action: ActionTypes): Initi
                 ...state, newPostText: action.newText
             }
         }
+        case 'SET_USER_PROFILE': {
+            return {
+                ...state, profile: action.profile
+            }
+        }
         default:
             return state
     }
@@ -54,4 +64,10 @@ export const newTextChangeHandlerAC = (newText: string) => {
         type: "UPDATE-NEW-POST-TEXT",
         newText: newText
     } as const
+}
+
+export const setUserProfile = (profile:any) => {
+    return {
+        type: SET_USER_PROFILE,
+        profile} as const
 }
