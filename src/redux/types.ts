@@ -1,4 +1,4 @@
-import {addPostAC, newTextChangeHandlerAC, setUserProfile} from "./profile-reducer";
+import {addPostAC, newTextChangeHandlerAC, ProfileType, setUserProfile} from "./profile-reducer";
 import {DialogType, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 
 import {
@@ -31,7 +31,7 @@ export type MessageType = {
 export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
-    profile:any
+    profile:ProfileType
 }
 export type PostType = {
     id: number

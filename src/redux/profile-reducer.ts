@@ -2,13 +2,21 @@ import React from "react";
 import {ActionTypes, PostType} from "./types";
 import {UserType} from "./users-reducer";
 
-const SET_USER_PROFILE = 'SET_USER_PROFILE'
-
-
 export type InitialStateType = {
     posts: Array<PostType>
     newPostText: string
-    profile: any
+    profile: ProfileType | null
+
+}
+
+export type ProfileType = {
+    aboutMe: string
+    contacts: { facebook: string; website: null | string; vk: string; twitter: string; instagram: string }
+    fullName: string;
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    photos: {small: string; large: string}
+    userId: number;
 }
 
 const initialState: InitialStateType = {
@@ -66,8 +74,8 @@ export const newTextChangeHandlerAC = (newText: string) => {
     } as const
 }
 
-export const setUserProfile = (profile:any) => {
+export const setUserProfile = (profile:ProfileType) => {
     return {
-        type: SET_USER_PROFILE,
+        type: 'SET_USER_PROFILE',
         profile} as const
 }

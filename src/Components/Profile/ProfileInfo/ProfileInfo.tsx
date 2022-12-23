@@ -1,9 +1,13 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
+import {log} from "util";
+import {ProfileType} from "../../../redux/profile-reducer";
+
 type ProfilePropsType = {
-    profile:any
+    profile: ProfileType | null
 }
-export const ProfileInfo:React.FC<ProfilePropsType> = (props) => {
+export const ProfileInfo: React.FC<ProfilePropsType> = (props) => {
+    console.log(props)
 
     if (!props.profile) {
         console.log('Нет фото')
@@ -14,7 +18,7 @@ export const ProfileInfo:React.FC<ProfilePropsType> = (props) => {
                 <img src="http://www.kolymastory.ru/wp-content/uploads/2016/05/gorod_003.jpg" alt="panorama"/>
             </div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large}/>
+                <img src={props.profile?.photos.large}/>
                 ava+description
             </div>
         </div>
