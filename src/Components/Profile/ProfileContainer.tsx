@@ -8,9 +8,9 @@ import {ProfilePageType} from "../../redux/types";
 
 type ProfileContainerProps = {
     setUserProfile: (profile: ProfileType) => void
-    profile: ProfileType
-
+    profile: ProfileType | null
 }
+
 
 export class ProfileContainerAPIComponent extends React.Component<ProfileContainerProps> {
 
@@ -27,11 +27,12 @@ export class ProfileContainerAPIComponent extends React.Component<ProfileContain
         return (
             <Profile {...this.props} profile={this.props.profile}/>
         )
+
     }
 }
 
-export const mapStateToProps = (state: ProfilePageType) => ({
-    profile: state.profile
+export const mapStateToProps = (state: AppStateType) => ({
+    profile: state.profilePage.profile
 
 })
 
