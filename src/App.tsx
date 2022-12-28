@@ -7,6 +7,7 @@ import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/UsersContainer";
 import {ProfileContainer} from "./Components/Profile/ProfileContainer";
 
+
 const App: React.FC = () => {
     return (
         <div className='app-wrapper'>
@@ -15,12 +16,13 @@ const App: React.FC = () => {
             {/*<Profile/>*/}
             <div className={'app-wrapper-content'}>
                 <Routes>
-                    <Route path="/profile/*"
+                    <Route path="/profile/:userId"
                            element={<ProfileContainer/>}/>
                     <Route path="/dialogs/*"
                            element={<DialogsContainer/>}/>
                     <Route path="/users/*"
                            element={<UsersContainer/>}/>
+
                     {/*<Route path="/news" element={<News/>}/>*/}
                     {/*<Route path="/music" element={<Music/>}/>*/}
                     {/*<Route path="/settings" element={<Settings/>}/>*/}
