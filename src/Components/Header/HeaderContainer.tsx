@@ -20,8 +20,8 @@ export class HeaderContainer extends React.Component<HeaderContainerPropsType> {
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
             .then(response => {
                     if (response.data.resultCode === 0) {
-                        let {userId, email, login} = response.data.data;
-                        this.props.setAuthUserData(userId, email, login)
+                        let {id, email, login} = response.data.data;
+                        this.props.setAuthUserData(id, email, login)
                     }
                 }
             )
@@ -32,5 +32,8 @@ export class HeaderContainer extends React.Component<HeaderContainerPropsType> {
         )
     }
 }
-const mapStateToProps = (state: AppStateType) => ({})
+const mapStateToProps = (state: AppStateType) => ({
+    isAuth:state.auth.isAuth,
+    login:state.auth.login
+})
 export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer)

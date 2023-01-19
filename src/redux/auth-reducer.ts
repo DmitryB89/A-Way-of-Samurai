@@ -4,12 +4,16 @@ type InitialStateType = {
     userId: string | null
     email: string | null
     login: string | null
+    isAuth: boolean
 }
 const initialState = {
     userId: null,
     email: null,
-    login: null
+    login: null,
+    isAuth: false
+
 }
+
 // export type InitialStateType = typeof initialState
 
 
@@ -19,7 +23,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
         case 'SET_USER_DATA':
             return {
                 ...state,
-                ...action.data
+                ...action.data,
+                isAuth: true
             }
         default:
             return state
