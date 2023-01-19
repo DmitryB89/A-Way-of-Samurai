@@ -9,6 +9,7 @@ import {
     toggleIsFetching,
     unfollow
 } from "./users-reducer";
+import {setAuthUserData} from "./auth-reducer";
 
 export type RootStateType = {
     dialogsPage: DialogPageType
@@ -31,7 +32,7 @@ export type MessageType = {
 export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
-    profile:ProfileType
+    profile: ProfileType
 }
 export type PostType = {
     id: number
@@ -64,6 +65,7 @@ type SetCurrentPage = ReturnType<typeof setCurrentPage>
 type setTotalUsersCount = ReturnType<typeof setTotalUsersCount>
 type toggleIsFetching = ReturnType<typeof toggleIsFetching>
 type setUserProfile = ReturnType<typeof setUserProfile>
+type setAuthUserData = ReturnType<typeof setAuthUserData>
 
 // type UpdateNewPostTextType = {
 //     type: 'UPDATE-NEW-POST-TEXT'
@@ -81,3 +83,4 @@ export type ActionTypes =
     | setTotalUsersCount
     | toggleIsFetching
     | setUserProfile
+    | setAuthUserData

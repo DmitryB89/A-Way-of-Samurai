@@ -6,12 +6,13 @@ import {Route, Routes} from "react-router-dom";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/UsersContainer";
 import {ProfileContainer} from "./Components/Profile/ProfileContainer";
+import {HeaderContainer} from "./Components/Header/HeaderContainer";
 
 
 const App: React.FC = () => {
     return (
         <div className='app-wrapper'>
-            <Header/>
+            <HeaderContainer />
             <Navbar/>
             {/*<Profile/>*/}
             <div className={'app-wrapper-content'}>

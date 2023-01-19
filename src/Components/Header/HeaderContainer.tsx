@@ -1,20 +1,36 @@
 import React from "react";
-import s from './Header.module.css'
-import {NavLink} from "react-router-dom";
+import {AppStateType} from "../../redux/redux-store";
+import {Header} from "./Header";
+import axios from "axios";
+import {setAuthUserData} from "../../redux/auth-reducer";
+import {connect} from "react-redux";
 
 
-
-
-export const Header = () => {
-    return (
-        <header className={s.header}>
-            <img
-                src="https://thumbnailer.mixcloud.com/unsafe/900x900/extaudio/e/2/1/5/6e6e-3195-4357-a11c-ae11da864c3a"
-                alt="logo"/>
-            <div className={s.loginBlock}>
-                <NavLink to={'/login'}>Login</NavLink>
-            </div>
-        </header>
-    )
+type MapStatePropsType = {}
+//
+type DispatchPropsType = {
+    setAuthUserData: (userId: string, email: string, login: string) => void
 }
+//
+export type HeaderContainerPropsType = MapStatePropsType & DispatchPropsType
 
+
+export class HeaderContainer extends React.Component<HeaderContainerPropsType> {
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
+            .then(response => {
+                    if (response.data.resultCode === 0) {
+                        let {userId, email, login} = response.data.data;
+                        this.props.setAuthUserData(userId, email, login)
+                    }
+                }
+            )
+    }
+    render() {
+        return (
+            <Header {...this.props}/>
+        )
+    }
+}
+const mapStateToProps = (state: AppStateType) => ({})
+export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer)
