@@ -6,7 +6,7 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
-    toggleIsFetching,
+    toggleIsFetching, toggleIsFollowingProgress,
     unfollow
 } from "./users-reducer";
 import {setAuthUserData} from "./auth-reducer";
@@ -66,6 +66,7 @@ type setTotalUsersCount = ReturnType<typeof setTotalUsersCount>
 type toggleIsFetching = ReturnType<typeof toggleIsFetching>
 type setUserProfile = ReturnType<typeof setUserProfile>
 type setAuthUserData = ReturnType<typeof setAuthUserData>
+type toggleIsFollowingProgress = ReturnType<typeof toggleIsFollowingProgress>
 
 // type UpdateNewPostTextType = {
 //     type: 'UPDATE-NEW-POST-TEXT'
@@ -84,3 +85,4 @@ export type ActionTypes =
     | toggleIsFetching
     | setUserProfile
     | setAuthUserData
+    | toggleIsFollowingProgress

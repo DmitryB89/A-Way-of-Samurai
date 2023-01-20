@@ -2,7 +2,7 @@ import s from './users.module.css'
 import userPhoto from '../../assets/Images/user.png'
 import React from "react";
 import uuid from "react-uuid";
-import {UserType} from "../../redux/users-reducer";
+import {toggleIsFollowingProgress, UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
 
@@ -17,6 +17,8 @@ type UsersPropsTypeWithOnPageChange = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
     onPageChanged: (pageNumber: number) => void
+    toggleIsFollowingProgress: (isFetching: boolean, userId:number) => void
+    followingInProgress: Array<number>
 }
 
 
@@ -57,7 +59,9 @@ export const Users: React.FC<UsersPropsTypeWithOnPageChange> = (props) => {
                                 </NavLink>
                         </div>
                         <div>
-                            {u.followed ? <button onClick={() => {
+                            {u.followed ?
+                                <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    props.toggleIsFollowingProgress(true,u.id)
 
                                     axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                         withCredentials: true,
@@ -69,10 +73,14 @@ export const Users: React.FC<UsersPropsTypeWithOnPageChange> = (props) => {
                                             if (response.data.resultCode == 0) {
                                                 props.unfollow(u.id)
                                             }
+                                            props.toggleIsFollowingProgress(false,u.id)
+
                                         })
 
                                 }}>Unfollow</button>
-                                : <button onClick={() => {
+                                : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    props.toggleIsFollowingProgress(true,u.id)
+
 
                                     axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                         withCredentials: true,
@@ -84,6 +92,8 @@ export const Users: React.FC<UsersPropsTypeWithOnPageChange> = (props) => {
                                             if (response.data.resultCode == 0) {
                                                 props.follow(u.id)
                                             }
+                                            props.toggleIsFollowingProgress(false,u.id)
+
                                         })
                                 }}>Follow</button>}
                         </div>
