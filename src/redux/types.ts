@@ -1,4 +1,4 @@
-import {addPostAC, newTextChangeHandlerAC, ProfileType, setUserProfile} from "./profile-reducer";
+import {addPostAC, newTextChangeHandlerAC, ProfileType, setStatusAC, setUserProfile} from "./profile-reducer";
 import {DialogType, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 
 import {
@@ -67,6 +67,7 @@ type toggleIsFetching = ReturnType<typeof toggleIsFetching>
 type setUserProfile = ReturnType<typeof setUserProfile>
 type setAuthUserData = ReturnType<typeof setAuthUserData>
 type toggleIsFollowingProgress = ReturnType<typeof toggleIsFollowingProgress>
+type setStatus = ReturnType<typeof setStatusAC>
 
 // type UpdateNewPostTextType = {
 //     type: 'UPDATE-NEW-POST-TEXT'
@@ -86,3 +87,4 @@ export type ActionTypes =
     | setUserProfile
     | setAuthUserData
     | toggleIsFollowingProgress
+|setStatus

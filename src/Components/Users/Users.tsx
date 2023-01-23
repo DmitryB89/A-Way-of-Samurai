@@ -42,7 +42,7 @@ export const Users: React.FC<UsersPropsTypeWithOnPageChange> = (props) => {
 
                     return <span key={uuid()}
                                  className={props.currentPage === p ? s.selectedPage : ''}
-                                 onClick={(e) => {
+                                 onClick={() => {
                                      props.onPageChanged(p)
                                  }}
                     >{p}</span>

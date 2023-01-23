@@ -14,8 +14,6 @@ import preloader from '../../assets/Images/25.svg'
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {Dialogs} from "../Dialogs/Dialogs";
-
-
 export class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
@@ -50,8 +48,6 @@ export class UsersAPIComponent extends React.Component<UsersPropsType> {
         </>
     }
 }
-
-
 type MapStatePropsType = {
     usersPage: UserType[]
     pageSize: number
@@ -88,6 +84,22 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
+
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleIsFollowingProgress, getUsers}),
+)(Users)
+// <MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>
+// export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
+// export const UsersContainer = connect(mapStateToProps, {
+//     follow,
+//     unfollow,
+//     setCurrentPage,
+//     toggleIsFollowingProgress,
+//     getUsers
+//     // getUsers: getUsersThunkCreator
+//
+// })(UsersAPIComponent)
 // const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 //     return {
 //         follow: (userId: number) => {
@@ -111,18 +123,3 @@ const mapStateToProps = (state: AppStateType) => {
 //     }
 //
 // }
-export default compose<React.ComponentType>(
-    withAuthRedirect,
-    connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleIsFollowingProgress, getUsers}),
-)(Users)
-// <MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>
-// export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
-// export const UsersContainer = connect(mapStateToProps, {
-//     follow,
-//     unfollow,
-//     setCurrentPage,
-//     toggleIsFollowingProgress,
-//     getUsers
-//     // getUsers: getUsersThunkCreator
-//
-// })(UsersAPIComponent)
