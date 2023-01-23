@@ -1,18 +1,26 @@
 import React from "react";
 import {Profile} from "./Profile";
-import axios from "axios";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {ProfileType, setUserProfile} from "../../redux/profile-reducer";
+import {getUserProfile, ProfileType} from "../../redux/profile-reducer";
 import {withRouter, WithRouterType} from "../withRouter";
+import {Navigate} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {Dialogs} from "../Dialogs/Dialogs";
+import {compose} from "redux";
 
 
 type MapStatePropsType = {
     profile: ProfileType | null
 }
 
+type MapStatePropsTypeForRedirectType = {
+    isAuth: boolean
+}
+
+
 type DispatchPropsType = {
-    setUserProfile: (profile: ProfileType) => void
+    getUserProfile: (profile: ProfileType) => void
 }
 type OwnPropsType = MapStatePropsType & DispatchPropsType
 
@@ -30,27 +38,30 @@ export class ProfileContainerAPIComponent extends React.Component<any> {
         if (!userId) {
             userId = 2
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                    this.props.setUserProfile(response.data);
-                    console.log(response)
-                }
-            )
+        this.props.getUserProfile(userId)
     }
 
     render() {
+
+        // if (!this.props.isAuth) return <Navigate to={'/login'}/>
+
         return (
             <Profile {...this.props} profile={this.props.profile}/>
         )
 
     }
 }
-
-export const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-    profile: state.profilePage.profile
-
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
+    profile: state.profilePage.profile,
 })
+// let AuthRedirectComponent = withAuthRedirect(ProfileContainerAPIComponent)
 
-const WithUrlDataContainerComponent = withRouter(ProfileContainerAPIComponent)
+// const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
-export const ProfileContainer = connect(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent)
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter,
+    // withAuthRedirect
+)(ProfileContainerAPIComponent)
+
+// export default withAuthRedirect(connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent))

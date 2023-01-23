@@ -3,10 +3,13 @@ import './App.css';
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Route, Routes} from "react-router-dom";
-import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
-import {UsersContainer} from "./Components/Users/UsersContainer";
-import {ProfileContainer} from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
+import {Login} from "./Components/Login/Login";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
+import {Dialogs} from "./Components/Dialogs/Dialogs";
+import {compose} from "redux";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import UsersContainer from "./Components/Users/UsersContainer";
 
 
 const App: React.FC = () => {
@@ -24,7 +27,9 @@ const App: React.FC = () => {
                     <Route path="/dialogs/*"
                            element={<DialogsContainer/>}/>
                     <Route path="/users/*"
-                           element={<UsersContainer/>}/>
+                           element={<UsersContainer />}/>
+                    <Route path="/login"
+                           element={<Login />}/>
 
                     {/*<Route path="/news" element={<News/>}/>*/}
                     {/*<Route path="/music" element={<Music/>}/>*/}

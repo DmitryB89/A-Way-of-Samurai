@@ -2,12 +2,12 @@ import {addPostAC, newTextChangeHandlerAC, ProfileType, setUserProfile} from "./
 import {DialogType, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 
 import {
-    follow,
+    followSuccess,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
     toggleIsFetching, toggleIsFollowingProgress,
-    unfollow
+    unfollowSuccess
 } from "./users-reducer";
 import {setAuthUserData} from "./auth-reducer";
 
@@ -58,8 +58,8 @@ type AddPostActionType = ReturnType<typeof addPostAC>
 type UpdateNewPostTextType = ReturnType<typeof newTextChangeHandlerAC>
 type SendMessageType = ReturnType<typeof sendMessageAC>
 type UpdateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyAC>
-type Follow = ReturnType<typeof follow>
-type Unfollow = ReturnType<typeof unfollow>
+type Follow = ReturnType<typeof followSuccess>
+type Unfollow = ReturnType<typeof unfollowSuccess>
 type SetUsers = ReturnType<typeof setUsers>
 type SetCurrentPage = ReturnType<typeof setCurrentPage>
 type setTotalUsersCount = ReturnType<typeof setTotalUsersCount>

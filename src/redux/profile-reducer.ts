@@ -1,6 +1,8 @@
 import React from "react";
 import {ActionTypes, PostType} from "./types";
 import {UserType} from "./users-reducer";
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 export type InitialStateType = {
     posts: Array<PostType>
@@ -15,7 +17,7 @@ export type ProfileType = {
     fullName: string;
     lookingForAJob: boolean
     lookingForAJobDescription: string
-    photos: {small: string; large: string}
+    photos: { small: string; large: string }
     userId: number;
 }
 
@@ -74,8 +76,16 @@ export const newTextChangeHandlerAC = (newText: string) => {
     } as const
 }
 
-export const setUserProfile = (profile:ProfileType) => {
+export const setUserProfile = (profile: ProfileType) => {
     return {
         type: 'SET_USER_PROFILE',
-        profile} as const
+        profile
+    } as const
 }
+export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId).then(response => {
+            dispatch(setUserProfile(response.data))
+        }
+    )
+}
+
