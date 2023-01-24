@@ -107,7 +107,9 @@ export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
 }
 
 export const getStatus = (userId: number) => (dispatch: Dispatch) => {
+
     profileAPI.getStatus(userId).then(response => {
+
             dispatch(setStatusAC(response.data))
         }
     )

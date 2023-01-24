@@ -12,7 +12,7 @@ import {compose} from "redux";
 
 type MapStatePropsType = {
     profile: ProfileType | null
-    status:string
+    status: string
 }
 
 type MapStatePropsTypeForRedirectType = {
@@ -22,8 +22,8 @@ type MapStatePropsTypeForRedirectType = {
 
 type DispatchPropsType = {
     getUserProfile: (profile: ProfileType) => void
-    getStatus: (userId:number) => void
-    updateStatus:(status:string) => void
+    getStatus: (userId: number) => void
+    updateStatus: (status: string) => void
 }
 type OwnPropsType = MapStatePropsType & DispatchPropsType
 
@@ -50,21 +50,23 @@ export class ProfileContainerAPIComponent extends React.Component<any> {
         // if (!this.props.isAuth) return <Navigate to={'/login'}/>
 
         return (
-            <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
+            <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+                     updateStatus={this.props.updateStatus}/>
         )
 
     }
 }
+
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
-    status:state.profilePage.status
+    status: state.profilePage.status
 })
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainerAPIComponent)
 
 // const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile, getStatus,updateStatus}),
+    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
     withRouter,
     // withAuthRedirect
 )(ProfileContainerAPIComponent)

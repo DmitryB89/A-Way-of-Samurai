@@ -1,32 +1,55 @@
-import React, {FC, useState} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 
 type ProfileStatusPropsType = {
     status: string
+    updateStatus: (status: string) => void
 }
 
-export const ProfileStatus: FC<ProfileStatusPropsType> = (props) => {
+export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
-    const [editMode, setEditMode] = useState(false)
-const activateEditeMode = () => {
-        setEditMode(true)
-}
-
-    const deactivateEditeMode = () => {
-        setEditMode(false)
+    state = {
+        editMode: false,
+        status: this.props.status || 'empty status'
     }
-    return (
-        <div>
-            {!editMode &&
-                <div>
-                    <span onDoubleClick={activateEditeMode}>{props.status}</span>
-                </div>
-            }
-            {editMode &&
-                <div>
-                    <input value={props.status} onBlur={deactivateEditeMode} autoFocus/>
-                </div>
-            }
 
-        </div>
-    );
-};
+    activateEditeMode = () => {
+        this.setState({
+            editMode: true
+        })
+    }
+    deactivateEditeMode = () => {
+        this.setState({
+            editMode: false
+        });
+        this.props.updateStatus(this.state.status)
+
+    }
+
+    onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            status: e.currentTarget.value
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                {!this.state.editMode &&
+                    <div>
+                        <span onDoubleClick={this.activateEditeMode}>{this.props.status || 'empty status'}</span>
+                    </div>
+                }
+
+                {this.state.editMode &&
+                    <div>
+                        <input onChange={this.onChangeHandler} value={this.state.status}
+                               onBlur={this.deactivateEditeMode} autoFocus/>
+                    </div>
+                }
+            </div>
+        )
+    }
+
+
+}
+

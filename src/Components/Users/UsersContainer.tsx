@@ -88,7 +88,7 @@ const mapStateToProps = (state: AppStateType) => {
 export default compose<React.ComponentType>(
     withAuthRedirect,
     connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleIsFollowingProgress, getUsers}),
-)(Users)
+)(UsersAPIComponent)
 // <MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
 // export const UsersContainer = connect(mapStateToProps, {

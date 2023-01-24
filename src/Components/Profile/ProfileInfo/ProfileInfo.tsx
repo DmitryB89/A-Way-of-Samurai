@@ -2,8 +2,8 @@ import React from "react";
 import s from './ProfileInfo.module.css'
 import {log} from "util";
 import {ProfileType} from "../../../redux/profile-reducer";
-import {ProfileStatus} from "./ProfileStatus";
 import {ProfilePropsType} from "../Profile";
+import {ProfileStatus} from "./ProfileStatus";
 
 
 export const ProfileInfo: React.FC<ProfilePropsType> = (props) => {
@@ -19,7 +19,7 @@ export const ProfileInfo: React.FC<ProfilePropsType> = (props) => {
             </div>
             <div className={s.descriptionBlock}>
                 <img src={props.profile?.photos.large}/>
-                <ProfileStatus status={props.status}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>
     )
