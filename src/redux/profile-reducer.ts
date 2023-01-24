@@ -57,7 +57,8 @@ export const profileReducer = (state = initialState, action: ActionTypes): Initi
 
         case 'SET_STATUS': {
             return {
-                ...state, status: action.status
+                ...state,
+                status: action.status
             }
         }
 
@@ -95,7 +96,7 @@ export const setUserProfile = (profile: ProfileType) => {
 export const setStatusAC = (status: string) => {
     return {
         type: "SET_STATUS",
-        status: status
+        status
     } as const
 }
 
@@ -120,7 +121,7 @@ export const updateStatus = (status: string) => (dispatch: Dispatch) => {
     profileAPI.updateStatus(status)
         .then(response => {
             if (response.data.resultCode === 0) {
-            dispatch(setStatusAC(response. data))
+            dispatch(setStatusAC(response.data.status))
         }}
     )
 }
