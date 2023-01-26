@@ -59,7 +59,7 @@ export const MyPostsForm = (props: MyPostsFormPropsType) => {
 
     <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-            <textarea {...register("myPost", { required: false })} value={props.message} onChange={newTextChangeHandler} ></textarea>
+            <textarea {...register("myPost", { required: true })} value={props.message} onChange={newTextChangeHandler} ></textarea>
         </div>
         <div>
             <button onClick={onAddPost}>Add post</button>

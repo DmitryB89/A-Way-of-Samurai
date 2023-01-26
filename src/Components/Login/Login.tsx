@@ -1,13 +1,20 @@
 import React, {useEffect} from 'react';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {type} from "os";
+import {authAPI} from "../../api/api";
+import {AppStateType} from "../../redux/redux-store";
+import {addPostAC, newTextChangeHandlerAC} from "../../redux/profile-reducer";
+import {connect} from "react-redux";
+import {MyPosts} from "../Profile/MyPosts/MyPosts";
+import {login} from "../../redux/auth-reducer";
 
 export const LoginForm = () => {
 
     type Inputs = {
         login: string,
-        password:string
-        exampleRequired:string
+        email: string
+        password: string
+        rememberMe: boolean
     };
 
     // const Alert:React.FC = () => {
@@ -20,23 +27,21 @@ export const LoginForm = () => {
     // }
 
 
-
-
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+    const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
+    const onSubmit: SubmitHandler<Inputs> = (data) =>
+        login(data.login, data.password, data.rememberMe)        // console.log(data);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <input placeholder={'Login'} type="text" {...register("login", { required: true })}/>
+                <input placeholder={'Email'} type="text" {...register("login", {required: true})}/>
                 {errors.login?.type === 'required' && <p role="alert">First name is required</p>}
             </div>
             <div>
-                <input placeholder={'Password'} type="password" {...register("password", { required: true })}/>
-                {errors.exampleRequired && <span>This field is required</span>}
+                <input placeholder={'Password'} type="password" {...register("password", {required: true})}/>
             </div>
             <div>
-                <input type={'checkbox'} {...register}/> remember me
+                <input type={'checkbox'} {...register('rememberMe')}/> remember me
             </div>
             <div>
                 <button>Login</button>
@@ -44,7 +49,6 @@ export const LoginForm = () => {
         </form>
     );
 };
-
 
 
 export const Login = () => {
@@ -55,3 +59,18 @@ export const Login = () => {
         </div>
     );
 };
+
+
+const mapStateToProps = (state: AppStateType) => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        login
+    }
+}
+
+export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(Login)
