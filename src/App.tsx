@@ -4,7 +4,7 @@ import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Route, Routes} from "react-router-dom";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import {Login} from "./Components/Login/Login";
+import {Login, LoginForm} from "./Components/Login/Login";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {compose} from "redux";
@@ -29,7 +29,7 @@ const App: React.FC = () => {
                     <Route path="/users/*"
                            element={<UsersContainer />}/>
                     <Route path="/login"
-                           element={<Login />}/>
+                           element={<LoginForm/>}/>
 
                     {/*<Route path="/news" element={<News/>}/>*/}
                     {/*<Route path="/music" element={<Music/>}/>*/}

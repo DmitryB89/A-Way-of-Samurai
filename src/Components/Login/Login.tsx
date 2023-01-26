@@ -11,7 +11,6 @@ import {login} from "../../redux/auth-reducer";
 export const LoginForm = () => {
 
     type Inputs = {
-        login: string,
         email: string
         password: string
         rememberMe: boolean
@@ -29,13 +28,13 @@ export const LoginForm = () => {
 
     const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) =>
-        login(data.login, data.password, data.rememberMe)        // console.log(data);
+        login(data.email, data.password, data.rememberMe)
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <input placeholder={'Email'} type="text" {...register("login", {required: true})}/>
-                {errors.login?.type === 'required' && <p role="alert">First name is required</p>}
+                <input placeholder={'Email'} type="text" {...register("email", {required: true})}/>
+                {errors.email?.type === 'required' && <p role="alert">First name is required</p>}
             </div>
             <div>
                 <input placeholder={'Password'} type="password" {...register("password", {required: true})}/>
@@ -73,4 +72,4 @@ const mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(Login)
+export const LoginContainer = connect(mapStateToProps, {login})(LoginForm)
