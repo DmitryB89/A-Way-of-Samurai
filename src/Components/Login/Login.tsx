@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, ReactElement, useEffect} from 'react';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {type} from "os";
 import {authAPI} from "../../api/api";
@@ -7,8 +7,9 @@ import {addPostAC, newTextChangeHandlerAC} from "../../redux/profile-reducer";
 import {connect} from "react-redux";
 import {MyPosts} from "../Profile/MyPosts/MyPosts";
 import {login} from "../../redux/auth-reducer";
-import {redirect} from "react-router-dom";
+import {redirect, useNavigate} from "react-router-dom";
 import {Dispatch} from "redux";
+
 
 
 type LoginFormPropsType = {
@@ -50,14 +51,16 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export const Login = (props: any):any => {
+export const Login = (props: any):ReactElement | null => {
+    const navigate = useNavigate()
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         props.login(data.email, data.password, data.rememberMe)
     }
 
     if (props.isAuth) {
-        return redirect('/profile')
+        navigate('/profile')
+        return null
     }
 
     return (
