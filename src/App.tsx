@@ -4,7 +4,7 @@ import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Route, Routes} from "react-router-dom";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import {Login, LoginForm} from "./Components/Login/Login";
+import {Login, LoginContainer, LoginForm} from "./Components/Login/Login";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {compose} from "redux";
@@ -13,6 +13,7 @@ import UsersContainer from "./Components/Users/UsersContainer";
 
 
 const App: React.FC = () => {
+    // @ts-ignore
     return (
         <div className='app-wrapper'>
             <HeaderContainer />
@@ -29,7 +30,7 @@ const App: React.FC = () => {
                     <Route path="/users/*"
                            element={<UsersContainer />}/>
                     <Route path="/login"
-                           element={<LoginForm/>}/>
+                           element={<LoginContainer/>}/>
 
                     {/*<Route path="/news" element={<News/>}/>*/}
                     {/*<Route path="/music" element={<Music/>}/>*/}

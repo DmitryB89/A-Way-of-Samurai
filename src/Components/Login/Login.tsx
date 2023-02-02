@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {type} from "os";
 import {authAPI} from "../../api/api";
@@ -7,31 +7,26 @@ import {addPostAC, newTextChangeHandlerAC} from "../../redux/profile-reducer";
 import {connect} from "react-redux";
 import {MyPosts} from "../Profile/MyPosts/MyPosts";
 import {login} from "../../redux/auth-reducer";
-
-export const LoginForm = () => {
-
-    type Inputs = {
-        email: string
-        password: string
-        rememberMe: boolean
-    };
-
-    // const Alert:React.FC = () => {
-    //     useEffect(() => {
-    //         const timeout = setTimeout(() => {
-    //         }, 3000)
-    //         return () => clearTimeout(timeout)
-    //     }, [])
-    //     return <span>This field is required</span>
-    // }
+import {redirect} from "react-router-dom";
+import {Dispatch} from "redux";
 
 
+type LoginFormPropsType = {
+    isAuth?: boolean
+    login: (email: string, password: string, rememberMe: boolean) => void
+}
+
+type Inputs = {
+    email: string
+    password: string
+    rememberMe: boolean
+};
+
+export const LoginForm = (props: any) => {
     const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = (data) =>
-        login(data.email, data.password, data.rememberMe)
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(props.onSubmit)}>
             <div>
                 <input placeholder={'Email'} type="text" {...register("email", {required: true})}/>
                 {errors.email?.type === 'required' && <p role="alert">First name is required</p>}
@@ -49,27 +44,44 @@ export const LoginForm = () => {
     );
 };
 
-
-export const Login = () => {
-    return (
-        <div>
-            <h1>Login</h1>
-            <LoginForm/>
-        </div>
-    );
-};
-
-
 const mapStateToProps = (state: AppStateType) => {
     return {
         isAuth: state.auth.isAuth
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        login
-    }
-}
+export const Login = (props: any):any => {
 
-export const LoginContainer = connect(mapStateToProps, {login})(LoginForm)
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        props.login(data.email, data.password, data.rememberMe)
+    }
+
+    if (props.isAuth) {
+        return redirect('/profile')
+    }
+
+    return (
+        <div>
+            <h1>Login</h1>
+            <LoginForm onSubmit={onSubmit}/>
+        </div>
+    );
+};
+
+
+// const mapDispatchToProps = (dispatch: Dispatch) => {
+//     return {
+//     {login}
+//     }
+// }
+
+export const LoginContainer = connect(mapStateToProps, {login})(Login)
+
+// const Alert:React.FC = () => {
+//     useEffect(() => {
+//         const timeout = setTimeout(() => {
+//         }, 3000)
+//         return () => clearTimeout(timeout)
+//     }, [])
+//     return <span>This field is required</span>
+// }
