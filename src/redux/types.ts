@@ -10,6 +10,7 @@ import {
     unfollowSuccess
 } from "./users-reducer";
 import {setAuthUserData} from "./auth-reducer";
+import {setInitialized} from "./app-reducer";
 
 export type RootStateType = {
     dialogsPage: DialogPageType
@@ -68,6 +69,7 @@ type setUserProfile = ReturnType<typeof setUserProfile>
 type setAuthUserData = ReturnType<typeof setAuthUserData>
 type toggleIsFollowingProgress = ReturnType<typeof toggleIsFollowingProgress>
 type setStatus = ReturnType<typeof setStatusAC>
+type setInitialized = ReturnType<typeof setInitialized>
 
 // type UpdateNewPostTextType = {
 //     type: 'UPDATE-NEW-POST-TEXT'
@@ -87,4 +89,5 @@ export type ActionTypes =
     | setUserProfile
     | setAuthUserData
     | toggleIsFollowingProgress
-|setStatus
+    | setStatus
+    | setInitialized

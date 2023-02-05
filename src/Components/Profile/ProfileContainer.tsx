@@ -4,42 +4,45 @@ import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {getStatus, getUserProfile, ProfileType, updateStatus} from "../../redux/profile-reducer";
 import {withRouter, WithRouterType} from "../withRouter";
-import {Navigate} from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {Dialogs} from "../Dialogs/Dialogs";
 import {compose} from "redux";
+import {Navigate} from "react-router-dom";
 
 
 type MapStatePropsType = {
     profile: ProfileType | null
     status: string
-}
-
-type MapStatePropsTypeForRedirectType = {
+    loggedId: string | null
     isAuth: boolean
-}
 
+
+}
 
 type DispatchPropsType = {
     getUserProfile: (profile: ProfileType) => void
     getStatus: (userId: number) => void
     updateStatus: (status: string) => void
 }
-type OwnPropsType = MapStatePropsType & DispatchPropsType
 
 type ProfileParamsType = {
     userId: string
 }
 
-type PropsType = WithRouterType<ProfileParamsType> & OwnPropsType
+type ContentPropsType = WithRouterType<ProfileParamsType> & MapStatePropsType
+    & DispatchPropsType
 
 
-export class ProfileContainerAPIComponent extends React.Component<any> {
+
+export class ProfileContainerAPIComponent extends React.Component<ContentPropsType> {
 
     componentDidMount() {
+debugger
         let userId = this.props.params.userId // {userId: '123312'}
-        if (!userId) {
-            userId = 2
+        if (userId) {
+
+            userId = this.props.loggedId
+            if (!userId) {
+                return <Navigate to={'/login'}/>
+            }
         }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
@@ -59,7 +62,10 @@ export class ProfileContainerAPIComponent extends React.Component<any> {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    loggedId: state.auth.userId,
+    isAuth: state.auth.isAuth
+
 })
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainerAPIComponent)
 
