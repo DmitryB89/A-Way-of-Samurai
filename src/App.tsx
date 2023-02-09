@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Route, Routes} from "react-router-dom";
-import { LoginContainer } from "./Components/Login/Login";
+import {LoginContainer} from "./Components/Login/Login";
 import ProfileContainer, {ProfileContainerAPIComponent} from "./Components/Profile/ProfileContainer";
 import {compose} from "redux";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
@@ -18,17 +18,16 @@ import {Preloader} from "./Components/Preloader/Preloader";
 export type AppContainerPropsType = MapStatePropsType & DispatchPropsType
 
 type MapStatePropsType = {
-    isInitialized:boolean
+    isInitialized: boolean
 }
 
 type DispatchPropsType = {
-    initializeApp:() => void
+    initializeApp: () => void
 }
 
-const mapStateToProps = (state: AppStateType):MapStatePropsType => ({
-    isInitialized:state.app.isInitialized
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
+    isInitialized: state.app.isInitialized
 })
-
 
 
 export class App extends React.Component<AppContainerPropsType> {
@@ -39,8 +38,9 @@ export class App extends React.Component<AppContainerPropsType> {
     }
 
     render() {
-if (!this.props.isInitialized)
-{return <Preloader/>}
+        if (!this.props.isInitialized) {
+            return <Preloader/>
+        }
 
         return (
             <div className='app-wrapper'>

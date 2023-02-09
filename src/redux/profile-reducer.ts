@@ -19,7 +19,7 @@ export type ProfileType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     photos: { small: string; large: string }
-    userId: number;
+    userId: string;
 }
 
 const initialState: InitialStateType = {

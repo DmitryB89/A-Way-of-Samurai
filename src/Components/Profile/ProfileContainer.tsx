@@ -6,15 +6,14 @@ import {getStatus, getUserProfile, ProfileType, updateStatus} from "../../redux/
 import {withRouter, WithRouterType} from "../withRouter";
 import {compose} from "redux";
 import {Navigate} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 type MapStatePropsType = {
     profile: ProfileType | null
     status: string
-    loggedId: string | null
+    loggedId: number | null
     isAuth: boolean
-
-
 }
 
 type DispatchPropsType = {
@@ -30,33 +29,31 @@ type ProfileParamsType = {
 type ContentPropsType = WithRouterType<ProfileParamsType> & MapStatePropsType
     & DispatchPropsType
 
-
-
 export class ProfileContainerAPIComponent extends React.Component<ContentPropsType> {
 
     componentDidMount() {
-debugger
         let userId = this.props.params.userId // {userId: '123312'}
+        console.log(userId)
         if (userId) {
 
+            // @ts-ignore
             userId = this.props.loggedId
             if (!userId) {
                 return <Navigate to={'/login'}/>
             }
         }
+        // @ts-ignore
         this.props.getUserProfile(userId)
+        // @ts-ignore
         this.props.getStatus(userId)
     }
 
     render() {
-
         // if (!this.props.isAuth) return <Navigate to={'/login'}/>
-
         return (
             <Profile {...this.props} profile={this.props.profile} status={this.props.status}
                      updateStatus={this.props.updateStatus}/>
         )
-
     }
 }
 
@@ -72,6 +69,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 // const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
 export default compose<React.ComponentType>(
+    withAuthRedirect,
     connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
     withRouter,
     // withAuthRedirect

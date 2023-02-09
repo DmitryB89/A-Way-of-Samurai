@@ -3,13 +3,13 @@ import {authAPI} from "../api/api";
 import {Dispatch} from "redux";
 
 type InitialStateType = {
-    userId: string | null
+    userId: number | null
     email: string | null
     login: string | null
     isAuth: boolean
 }
 const initialState = {
-    userId: null,
+    userId: 123312,
     email: null,
     login: null,
     isAuth: false
@@ -33,7 +33,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 }
 
 
-export const setAuthUserData = (userId: string | null, email: string | null, login: string | null, isAuth:boolean) => {
+export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth:boolean) => {
     return {
         type: 'SET_USER_DATA',
         data: {userId, email, login, isAuth}
