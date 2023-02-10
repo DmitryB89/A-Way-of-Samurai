@@ -15,6 +15,13 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {Dialogs} from "../Dialogs/Dialogs";
 import {Preloader} from "../Preloader/Preloader";
+import {
+    getCurrentPage, getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersSelector
+} from "../../redux/users-selector";
 export class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
@@ -74,7 +81,7 @@ type MapDispatchToPropsType = {
 
 export type UsersPropsType = MapStatePropsType & MapDispatchToPropsType
 
-
+/*
 const mapStateToProps = (state: AppStateType) => {
     return {
         usersPage: state.users.users,
@@ -83,6 +90,18 @@ const mapStateToProps = (state: AppStateType) => {
         currentPage: state.users.currentPage,
         isFetching: state.users.isFetching,
         followingInProgress: state.users.followingInProgress
+    }
+}
+*/
+
+const mapStateToProps = (state: AppStateType) => {
+    return {
+        usersPage: getUsersSelector(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 
